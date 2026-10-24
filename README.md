@@ -28,7 +28,7 @@ SiteAudit menarik satu halaman situs, membaca respons dan beberapa path umum, la
 Butuh PHP 8.1 atau lebih baru dengan ekstensi **openssl** (wajib, untuk situs https) dan sebaiknya **curl**. Tidak ada `composer install`, tidak ada build. Satu perintah.
 
 ```bash
-git clone https://github.com/bramcps/web-security-auditor.git
+git clone https://github.com/b3n3d1ck/web-security-auditor.git
 cd web-security-auditor
 php -S localhost:8000 router.php
 ```
