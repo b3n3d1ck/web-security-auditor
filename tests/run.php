@@ -60,9 +60,16 @@ $checks = new Checks($http);
 
 $missing = $checks->securityHeaders([]);
 check('flags missing CSP', (bool) array_filter($missing, fn($f) => $f['id'] === 'header-content-security-policy' && $f['severity'] === 'high'));
+check('flags missing COOP', (bool) array_filter($missing, fn($f) => $f['id'] === 'header-cross-origin-opener-policy' && $f['severity'] === 'medium'));
+check('flags missing CORP', (bool) array_filter($missing, fn($f) => $f['id'] === 'header-cross-origin-resource-policy' && $f['severity'] === 'medium'));
+check('flags missing COEP', (bool) array_filter($missing, fn($f) => $f['id'] === 'header-cross-origin-embedder-policy' && $f['severity'] === 'low'));
 
 $present = $checks->securityHeaders(['content-security-policy' => "default-src 'self'"]);
 check('ok when CSP present', (bool) array_filter($present, fn($f) => $f['id'] === 'header-content-security-policy' && $f['severity'] === 'ok'));
+
+$coopOk = $checks->securityHeaders(['cross-origin-opener-policy' => 'same-origin', 'cross-origin-resource-policy' => 'same-origin']);
+check('ok when COOP present', (bool) array_filter($coopOk, fn($f) => $f['id'] === 'header-cross-origin-opener-policy' && $f['severity'] === 'ok'));
+check('ok when CORP present', (bool) array_filter($coopOk, fn($f) => $f['id'] === 'header-cross-origin-resource-policy' && $f['severity'] === 'ok'));
 
 $cookieBad = $checks->cookies(['set-cookie' => ['SESSID=abc; Path=/']]);
 check('flags insecure cookie', (bool) array_filter($cookieBad, fn($f) => $f['severity'] !== 'ok'));

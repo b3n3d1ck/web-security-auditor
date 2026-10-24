@@ -29,6 +29,15 @@ class Checks
         'permissions-policy' => ['low', 'Permissions-Policy',
             'Tanpa Permissions-Policy, skrip pihak ketiga bebas memakai kamera, mikrofon, dan lokasi.',
             'Tambahkan Permissions-Policy yang mematikan fitur yang tidak dipakai, mis. geolocation=(), camera=(), microphone=()'],
+        'cross-origin-opener-policy' => ['medium', 'Cross-Origin-Opener-Policy',
+            'Tanpa COOP, window yang dibuka dari situsmu tetap punya referensi ke window asal, membuka pintu serangan tab-nabbing dan side-channel kelas Spectre.',
+            'Tambahkan: Cross-Origin-Opener-Policy: same-origin'],
+        'cross-origin-embedder-policy' => ['low', 'Cross-Origin-Embedder-Policy',
+            'Tanpa COEP, halaman memuat resource lintas-origin tanpa persetujuan eksplisit, dan fitur yang butuh isolasi penuh (mis. SharedArrayBuffer) tidak bisa diaktifkan dengan aman.',
+            'Tambahkan: Cross-Origin-Embedder-Policy: require-corp — biasanya dipasangkan dengan COOP untuk cross-origin isolation.'],
+        'cross-origin-resource-policy' => ['medium', 'Cross-Origin-Resource-Policy',
+            'Tanpa CORP, resource situsmu (gambar, font, data) bisa dibaca dari origin lain lewat elemen cross-origin, memperluas permukaan kebocoran data.',
+            'Tambahkan: Cross-Origin-Resource-Policy: same-origin (atau same-site kalau ada subdomain sendiri).'],
     ];
 
     /** @return array<array> */
